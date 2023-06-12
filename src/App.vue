@@ -1,102 +1,25 @@
 <script setup>
-import { ref } from 'vue'
-import { livros } from '@/_data/livros.js'
 
-const carrinho = ref({
-  itens: [],
-  total: 0
-})
+import ListagemLivros from '@/components/ListagemLivro.vue'
+import MeuCarrinho from '@/components/MeuCarrinho.vue'
 
-function atualizaQuantidadeItem(item) {
-  carrinho.value.total -= item.total
-  item.total = item.price * item.quantidade
-  carrinho.value.total += item.total
-}
-
-function removerItemCarrinho(item) {
-  const index = carrinho.value.itens.findIndex((i) => i.id === item.id)
-  carrinho.value.total -= item.total
-  carrinho.value.itens.splice(index, 1)
-}
-
-function adicionarAoCarrinho(livro) {
-  const index = carrinho.value.itens.findIndex((item) => item.id === livro.id)
-  if (index === -1) {
-    carrinho.value.itens.push({
-      ...livro,
-      quantidade: 1,
-      total: livro.price
-    })
-    carrinho.value.total += livro.price
-  } else {
-    carrinho.value.itens[index].quantidade++
-    carrinho.value.itens[index].total += livro.price
-    carrinho.value.total += livro.price
-  }
-}
-
-function formatarPreco(preco) {
-  return 'R$ ' + preco.toFixed(2).replace('.', ',')
-}
 </script>
-
 <template>
   <h1>Minha livraria</h1>
   <div class="container-geral">
-    <div class="listagem-livros">
-      <div class="card-livro" v-for="livro in livros" :key="livro.id">
-        <div class="card-info-livro">
-          <div class="wrap-livro">
-            <img :src="livro.img" alt="Capa do livro" class="capa-livro" />
-          </div>
-          <p class="titulo-livro">{{ livro.title }}</p>
-          <p class="autor-livro">{{ livro.author }}</p>
-          <p class="preco-livro">{{ formatarPreco(livro.price) }}</p>
-        </div>
-        <div class="card-buttons-livros">
-          <button @click="adicionarAoCarrinho(livro)">Adicionar ao carrinho</button>
-        </div>
+        <Listagem-Livros />
+        <meu-carrinho />
       </div>
-    </div>
-    <div class="carrinho">
-      <h2>Meu carrinho</h2>
-      <div class="wrap-carrinho">
-        <p v-if="carrinho.itens.length === 0">Seu carrinho está vazio</p>
-        <div v-else>
-          <div class="item-carrinho" v-for="(item, index) in carrinho.itens" :key="index">
-            <div class="info-livro">
-              <div class="imagem-livro">
-                <img :src="item.img" class="icon-capa-livro" />
-              </div>
-              <div class="detalhes-livro">
-                <div>
-                  <p>{{ item.title }}</p>
-                  <p class="info-livro-preco">{{ formatarPreco(item.price) }}/un</p>
-                </div>
-                <div>
-                  <p>
-                    Quantidade:
-                    <input
-                      type="number"
-                      v-model="item.quantidade"
-                      @change="atualizaQuantidadeItem(item)"
-                      min="1"
-                    />
-                  </p>
-                  <button @click="removerItemCarrinho(item)">&#128465;</button>
-                  <p>Total: {{ formatarPreco(item.total) }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <p class="carrinho-total">Total: {{ formatarPreco(carrinho.total) }}</p>
-      </div>
-    </div>
-  </div>
+     
 </template>
 
 <style scoped>
+
+.container-geral {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
 .wrap-carrinho .carrinho-total {
   position: fixed;
   bottom: 3%;
@@ -148,19 +71,9 @@ function formatarPreco(preco) {
   width: 30px;
   margin-right: 10px;
 }
-.container-geral {
-  /* display: flex;
-  justify-content: space-between; */
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-}
 
 .carrinho {
   /* min-width: 20%; */
-}
-.listagem-livros {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .card-livro {
