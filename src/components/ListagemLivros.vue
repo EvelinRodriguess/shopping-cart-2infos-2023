@@ -1,7 +1,6 @@
 <script setup>
 import { livros } from '@/_data/livros.js'
-
-import CardLivro from '@/components/CardLivro.vue'
+import  CardLivro  from '@/components/CardLivro.vue'
 </script>
 
 <template>

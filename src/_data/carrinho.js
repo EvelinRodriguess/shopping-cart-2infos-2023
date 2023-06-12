@@ -1,4 +1,4 @@
-const carrinho = ref({
+const carrinho = ref ({
     itens: [],
     total: 0
   })
