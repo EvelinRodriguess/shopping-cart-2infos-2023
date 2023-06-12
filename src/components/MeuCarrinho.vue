@@ -53,6 +53,9 @@ function formatarPreco(preco) {
 
 <style scoped>
 
+.carrinho {
+  /* min-width: 20%; */
+}
 .wrap-carrinho .carrinho-total {
   position: fixed;
   bottom: 3%;
