@@ -1,3 +1,5 @@
+import { ref } from 'vue'
+
 const carrinho = ref ({
     itens: [],
     total: 0

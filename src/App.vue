@@ -1,6 +1,7 @@
 <script setup>
-import { ListagemLivros }from '@/components/ListagemLivro.vue'
-import { MeuCarrinho } from '@/components/MeuCarrinho.vue'
+import  MeuCarrinho from '@/components/MeuCarrinho.vue'
+import  ListagemLivros from '@/components/ListagemLivro.vue'
+
 </script>
 <template>
   <h1>Minha livraria</h1>
